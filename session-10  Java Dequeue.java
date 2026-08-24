@@ -1,94 +1,40 @@
-import java.io.*;
+iimport java.io.*;
 import java.util.*;
 
 public class Main {
-
-    static class FastScanner {
-        private final InputStream in = System.in;
-        private final byte[] buffer = new byte[1 << 16];
-        private int ptr = 0, len = 0;
-
-        private int read() throws IOException {
-            if (ptr >= len) {
-                len = in.read(buffer);
-                ptr = 0;
-
-                if (len <= 0) {
-                    return -1;
-                }
-            }
-            return buffer[ptr++];
-        }
-
-        int nextInt() throws IOException {
-            int c;
-
-            do {
-                c = read();
-            } while (c <= ' ' && c != -1);
-
-            int sign = 1;
-
-            if (c == '-') {
-                sign = -1;
-                c = read();
-            }
-
-            int num = 0;
-
-            while (c > ' ') {
-                num = num * 10 + (c - '0');
-                c = read();
-            }
-
-            return num * sign;
-        }
-    }
-
     public static void main(String[] args) throws Exception {
 
-        FastScanner fs = new FastScanner();
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(System.in));
 
-        int n = fs.nextInt();
-        int k = fs.nextInt();
+        StringBuilder input = new StringBuilder();
+        String line;
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        while ((line = br.readLine()) != null) {
+            input.append(line).append(" ");
+        }
 
-        int[] arr = new int[n];
+        if (input.length() == 0) {
+            return;
+        }
+
+        StringTokenizer st = new StringTokenizer(input.toString());
+
+        int n = Integer.parseInt(st.nextToken());
+
+        HashSet<String> set = new HashSet<>();
 
         for (int i = 0; i < n; i++) {
-            arr[i] = fs.nextInt();
+            String a = st.nextToken();
+            String b = st.nextToken();
+
+            set.add(a + " " + b);
+
+            System.out.println(set.size());
         }
-
-        // First window
-        for (int i = 0; i < k; i++) {
-            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-        }
-
-        int maxUnique = map.size();
-
-        // Slide the window
-        for (int i = k; i < n; i++) {
-
-            // Add new element
-            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-
-            // Remove old element
-            int removed = arr[i - k];
-
-            if (map.get(removed) == 1) {
-                map.remove(removed);
-            } else {
-                map.put(removed, map.get(removed) - 1);
-            }
-
-            maxUnique = Math.max(maxUnique, map.size());
-        }
-
-        System.out.println(maxUnique);
     }
 }
 
 
-Your Output
-0
+Output
+Status :Successfully executed
