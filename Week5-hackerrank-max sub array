@@ -1,0 +1,59 @@
+We define subsequence as any subset of an array. We define a subarray as a contiguous subsequence in an array.
+
+Given an array, find the maximum possible sum among:
+
+all nonempty subarrays.
+all nonempty subsequences.
+Print the two values as space-separated integers on one line.
+
+PRPGRAM:
+import java.util.*;
+
+class Result {
+
+    public static List<Integer> maxSubarray(List<Integer> arr) {
+        int current = arr.get(0);
+        int maxSubarray = arr.get(0);
+
+        int maxElement = arr.get(0);
+        int maxSubsequence = 0;
+
+        for (int i = 1; i < arr.size(); i++) {
+            int x = arr.get(i);
+
+            
+            current = Math.max(x, current + x);
+            maxSubarray = Math.max(maxSubarray, current);
+
+           
+            maxElement = Math.max(maxElement, x);
+        }
+
+        
+        for (int x : arr) {
+            if (x > 0) {
+                maxSubsequence += x;
+            }
+        }
+
+       
+        if (maxSubsequence == 0) {
+            maxSubsequence = maxElement;
+        }
+
+        return Arrays.asList(maxSubarray, maxSubsequence);
+    }
+}
+
+
+Sample Input 0
+
+2
+4
+1 2 3 4
+6
+2 -1 2 3 4 -5
+Sample Output 0
+
+10 10
+10 11
